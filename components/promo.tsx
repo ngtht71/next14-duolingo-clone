@@ -28,9 +28,7 @@ export const Promo = () => {
         className="w-full"
         size="lg"
       >
-        <Link href="/shop">
-          Upgrade today
-        </Link>
+
       </Button>
     </div>
   );
