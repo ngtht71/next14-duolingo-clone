@@ -15,6 +15,7 @@ export const GET = async () => {
 };
 
 export const POST = async (req: Request) => {
+  console.log("posting?");
   if (!isAdmin()) {
     return new NextResponse("Unauthorized", { status: 401 });
   }
@@ -24,6 +25,7 @@ export const POST = async (req: Request) => {
   const data = await db.insert(courses).values({
     ...body,
   }).returning();
-
+  
+  
   return NextResponse.json(data[0]);
 };

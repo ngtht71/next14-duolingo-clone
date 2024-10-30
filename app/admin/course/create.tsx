@@ -4,6 +4,7 @@ export const CourseCreate = () => {
   return (
     <Create>
       <SimpleForm>
+      <TextInput source="id" label="ID" />
         <TextInput 
           source="title" 
           validate={[required()]} 

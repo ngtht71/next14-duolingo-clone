@@ -2,7 +2,7 @@ import { relations } from "drizzle-orm";
 import { boolean, integer, pgEnum, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
 
 export const courses = pgTable("courses", {
-  id: serial("id").primaryKey(),
+  id: integer("id").primaryKey(),
   title: text("title").notNull(),
   imageSrc: text("image_src").notNull(),
 });
@@ -29,7 +29,7 @@ export const unitsRelations = relations(units, ({ many, one }) => ({
 }));
 
 export const lessons = pgTable("lessons", {
-  id: serial("id").primaryKey(),
+  id: integer("id").primaryKey(),
   title: text("title").notNull(),
   unitId: integer("unit_id").references(() => units.id, { onDelete: "cascade" }).notNull(),
   order: integer("order").notNull(),
@@ -43,7 +43,7 @@ export const lessonsRelations = relations(lessons, ({ one, many }) => ({
   challenges: many(challenges),
 }));
 
-export const challengesEnum = pgEnum("type", ["SELECT", "ASSIST"]);
+export const challengesEnum = pgEnum("type", ["SELECT", "ASSIST", "LEARN"]);
 
 export const challenges = pgTable("challenges", {
   id: serial("id").primaryKey(),
@@ -63,7 +63,7 @@ export const challengesRelations = relations(challenges, ({ one, many }) => ({
 }));
 
 export const challengeOptions = pgTable("challenge_options", {
-  id: serial("id").primaryKey(),
+  id: integer("id").primaryKey(),
   challengeId: integer("challenge_id").references(() => challenges.id, { onDelete: "cascade" }).notNull(),
   text: text("text").notNull(),
   correct: boolean("correct").notNull(),

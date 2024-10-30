@@ -4,6 +4,7 @@ export const ChallengeOptionCreate = () => {
   return (
     <Create>
       <SimpleForm>
+      <TextInput source="id" label="ID" />
         <TextInput 
           source="text" 
           validate={[required()]} 
@@ -13,10 +14,7 @@ export const ChallengeOptionCreate = () => {
           source="correct"
           label="Correct option"
         />
-        <ReferenceInput
-          source="challengeId"
-          reference="challenges"
-        />
+        <TextInput source="challengeId" label="Challenge Id"></TextInput>
         <TextInput
           source="imageSrc"
           label="Image URL"

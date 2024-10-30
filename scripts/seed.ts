@@ -114,7 +114,7 @@ const main = async () => {
         question: 'Which one of these is the "the robot"?',
       },
     ]);
-
+// với một challenge thì phải add challenge options vào
     await db.insert(schema.challengeOptions).values([
       {
         challengeId: 1, // Which one of these is "the man"?

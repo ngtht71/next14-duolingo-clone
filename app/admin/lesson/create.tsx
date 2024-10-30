@@ -4,6 +4,7 @@ export const LessonCreate = () => {
   return (
     <Create>
       <SimpleForm>
+        <TextInput source="id" label="ID" />
         <TextInput 
           source="title" 
           validate={[required()]} 
@@ -18,6 +19,7 @@ export const LessonCreate = () => {
           validate={[required()]}
           label="Order"
         />
+        
       </SimpleForm>
     </Create>
   );
