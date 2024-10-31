@@ -3,7 +3,23 @@ import Image from "next/image";
 type Props = {
   question: string;
 };
-
+export const LearningBubble: React.FC<{vidsrc: string | null | undefined}> = ({vidsrc}) => {
+  return (
+    <div className="relative aspect-square mb-4 max-h-[80px] lg:max-h-[250px] w-full flex justify-center">
+      {/* {vidsrc!=null && (<img
+        src={vidsrc}
+        alt="challenge video"
+        className="hidden lg:block h-full"
+      />) } */}
+      {vidsrc!=null && (<video
+        src={vidsrc}
+        controls
+        loop
+        className="hidden lg:block h-full"
+      />) }
+    </div>
+  )
+}
 export const QuestionBubble = ({ question }: Props) => {
   return (
     <div className="flex items-center gap-x-4 mb-6">

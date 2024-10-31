@@ -19,6 +19,10 @@ export const ChallengeCreate = () => {
             {
               id: "ASSIST",
               name: "ASSIST",
+            },
+            {
+              id: "LEARN",
+              name: "LEARN",
             }
           ]}
           validate={[required()]} 
@@ -26,6 +30,9 @@ export const ChallengeCreate = () => {
         <ReferenceInput
           source="lessonId"
           reference="lessons"
+        />
+        <NumberInput
+          source="lessonId"
         />
         <NumberInput
           source="order"

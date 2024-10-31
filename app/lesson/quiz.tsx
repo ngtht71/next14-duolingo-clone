@@ -17,7 +17,7 @@ import { Header } from "./header";
 import { Footer } from "./footer";
 import { Challenge } from "./challenge";
 import { ResultCard } from "./result-card";
-import { QuestionBubble } from "./question-bubble";
+import { LearningBubble, QuestionBubble } from "./question-bubble";
 
 type Props ={
   initialPercentage: number;
@@ -204,10 +204,12 @@ export const Quiz = ({
     );
   }
 
-  const title = challenge.type === "ASSIST" 
+  let title = challenge.type === "ASSIST" 
     ? "Select the correct meaning"
     : challenge.question;
-
+  if(challenge.type === "LEARN") {
+    title = "Learn a new word: " + challenge.question; 
+  }
   return (
     <>
       {incorrectAudio}
@@ -225,8 +227,12 @@ export const Quiz = ({
             </h1>
             <div>
               {challenge.type === "ASSIST" && (
-                <QuestionBubble question={challenge.question} />
+                <LearningBubble vidsrc={options.find((option) => option.correct)?.imageSrc} />
               )}
+              {challenge.type==='LEARN' && (
+                <LearningBubble vidsrc={options.at(0)?.imageSrc}/>
+              )}
+              
               <Challenge
                 options={options}
                 onSelect={onSelect}

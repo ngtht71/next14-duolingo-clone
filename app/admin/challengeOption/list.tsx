@@ -8,7 +8,7 @@ export const ChallengeOptionList = () => {
         <TextField source="text" />
         <BooleanField source="correct" />
         {/* <ReferenceField source="challengeId" reference="challenges" /> */}
-        <TextField source="challengeId"/>
+        <TextField source="challengeId" label="Challenge ID"/>
         <TextField source="imageSrc" />
         <TextField source="audioSrc" />
       </Datagrid>

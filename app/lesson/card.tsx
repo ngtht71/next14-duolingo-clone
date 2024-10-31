@@ -34,8 +34,8 @@ export const Card = ({
 
   const handleClick = useCallback(() => {
     if (disabled) return;
-
-    controls.play();
+// this audio shit is async, it never returns (because we made it) so onClick is never reached.
+    //controls.play();
     onClick();
   }, [disabled, onClick, controls]);
 
@@ -56,11 +56,11 @@ export const Card = ({
       )}
     >
       {audio}
-      {imageSrc && (
+      {imageSrc && type === "SELECT" && (
         <div
           className="relative aspect-square mb-4 max-h-[80px] lg:max-h-[150px] w-full"
         >
-          <Image src={imageSrc} fill alt={text} />
+          <video src={imageSrc} className="h-full" loop autoPlay/>
         </div>
       )}
       <div className={cn(
