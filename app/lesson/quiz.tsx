@@ -204,12 +204,17 @@ export const Quiz = ({
     );
   }
 
-  let title = challenge.type === "ASSIST" 
-    ? "Select the correct meaning"
-    : challenge.question;
-  if(challenge.type === "LEARN") {
-    title = "Learn a new word: " + challenge.question; 
-  }
+let title;
+switch (challenge.type) {
+  case "ASSIST":
+    title = "Chọn từ được biểu diễn trong video:";
+    break;
+  case "LEARN":
+    title = "Từ mới: " + challenge.question;
+    break;
+  default:
+    title = challenge.question;
+}
   return (
     <>
       {incorrectAudio}

@@ -15,6 +15,7 @@ export const ChallengeOptionCreate = () => {
           label="Correct option"
         />
         <TextInput source="challengeId" label="Challenge Id"></TextInput>
+        <ReferenceInput source="challengeId" reference="challenges"/>
         <TextInput
           source="imageSrc"
           label="Image URL"

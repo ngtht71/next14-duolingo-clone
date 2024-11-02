@@ -15,6 +15,7 @@ export const LearningBubble: React.FC<{vidsrc: string | null | undefined}> = ({v
         src={vidsrc}
         controls
         loop
+        autoPlay
         className="hidden lg:block h-full"
       />) }
     </div>
