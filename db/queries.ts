@@ -3,13 +3,12 @@ import { eq } from "drizzle-orm";
 import { auth } from "@clerk/nextjs";
 
 import db from "@/db/drizzle";
-import { 
+import {
   challengeProgress,
-  courses, 
-  lessons, 
-  units, 
-  userProgress,
-  userSubscription
+  courses,
+  lessons,
+  units,
+  userProgress
 } from "@/db/schema";
 
 export const getUserProgress = cache(async () => {
@@ -83,12 +82,6 @@ export const getUnits = cache(async () => {
   return normalizedData;
 });
 
-export const getCourses = cache(async () => {
-  const data = await db.query.courses.findMany();
-
-  return data;
-});
-
 export const getCourseById = cache(async (courseId: number) => {
   const data = await db.query.courses.findFirst({
     where: eq(courses.id, courseId),
@@ -139,8 +132,8 @@ export const getCourseProgress = cache(async () => {
     .flatMap((unit) => unit.lessons)
     .find((lesson) => {
       return lesson.challenges.some((challenge) => {
-        return !challenge.challengeProgress 
-          || challenge.challengeProgress.length === 0 
+        return !challenge.challengeProgress
+          || challenge.challengeProgress.length === 0
           || challenge.challengeProgress.some((progress) => progress.completed === false)
       });
     });
@@ -186,7 +179,7 @@ export const getLesson = cache(async (id?: number) => {
   }
 
   const normalizedChallenges = data.challenges.map((challenge) => {
-    const completed = challenge.challengeProgress 
+    const completed = challenge.challengeProgress
       && challenge.challengeProgress.length > 0
       && challenge.challengeProgress.every((progress) => progress.completed)
 
@@ -216,28 +209,6 @@ export const getLessonPercentage = cache(async () => {
   );
 
   return percentage;
-});
-
-const DAY_IN_MS = 86_400_000;
-export const getUserSubscription = cache(async () => {
-  const { userId } = await auth();
-
-  if (!userId) return null;
-
-  const data = await db.query.userSubscription.findFirst({
-    where: eq(userSubscription.userId, userId),
-  });
-
-  if (!data) return null;
-
-  const isActive = 
-    data.stripePriceId &&
-    data.stripeCurrentPeriodEnd?.getTime()! + DAY_IN_MS > Date.now();
-
-  return {
-    ...data,
-    isActive: !!isActive,
-  };
 });
 
 export const getTopTenUsers = cache(async () => {
