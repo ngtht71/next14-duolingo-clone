@@ -20,9 +20,9 @@ const main = async () => {
       db.delete(schema.challenges),
       db.delete(schema.units),
       db.delete(schema.lessons),
-      db.delete(schema.courses),
+      // db.delete(schema.courses),
       db.delete(schema.challengeOptions),
-      db.delete(schema.userSubscription),
+      // db.delete(schema.userSubscription),
     ]);
 
     // Insert courses
