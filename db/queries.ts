@@ -145,7 +145,7 @@ export const getCourseProgress = cache(async () => {
 });
 
 export const getLesson = cache(async (id?: number) => {
-  const { userId } = await auth();
+  const { userId } =  auth();
 
   if (!userId) {
     return null;
