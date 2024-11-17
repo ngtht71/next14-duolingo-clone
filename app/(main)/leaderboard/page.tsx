@@ -37,10 +37,10 @@ const LearderboardPage = async () => {
             width={90}
           />
           <h1 className="text-center font-bold text-neutral-800 text-2xl my-6">
-            Leaderboard
+            Bảng xếp hạng
           </h1>
           <p className="text-muted-foreground text-center text-lg mb-6">
-            See where you stand among other learners in the community.
+            Xem thứ hạng của bạn trong cộng đồng người học.
           </p>
           <Separator className="mb-4 h-0.5 rounded-full" />
           {leaderboard.map((userProgress, index) => (
