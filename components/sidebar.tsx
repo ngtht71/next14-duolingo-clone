@@ -31,17 +31,17 @@ export const Sidebar = ({ className }: Props) => {
       </Link>
       <div className="flex flex-col gap-y-2 flex-1">
         <SidebarItem
-          label="Learn"
+          label="Học tập"
           href="/learn"
           iconSrc="/learn.svg"
         />
         <SidebarItem
-          label="Leaderboard"
+          label="Bảng xếp hạng"
           href="/leaderboard"
           iconSrc="/leaderboard.svg"
         />
         <SidebarItem
-          label="quests"
+          label="Nhiệm vụ"
           href="/quests"
           iconSrc="/quests.svg"
         />

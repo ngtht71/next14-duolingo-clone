@@ -9,7 +9,7 @@ export const Header = ({ title }: Props) => {
 
       <h1 className="font-bold text-lg">
         {/* {title} */}
-        Tilte of course
+      Tiêu đề khoá học
       </h1>
       <div />
     </div>
