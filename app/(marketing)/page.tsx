@@ -1,11 +1,11 @@
 import Image from "next/image";
 import { Loader } from "lucide-react";
-import {
-  ClerkLoaded,
-  ClerkLoading,
-  SignInButton,
-  SignUpButton,
-  SignedIn,
+import { 
+  ClerkLoaded, 
+  ClerkLoading, 
+  SignInButton, 
+  SignUpButton, 
+  SignedIn, 
   SignedOut
 } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
@@ -19,7 +19,7 @@ export default function Home() {
       </div>
       <div className="flex flex-col items-center gap-y-8">
         <h1 className="text-xl lg:text-3xl font-bold text-neutral-600 max-w-[480px] text-center">
-          Học, thực hành và thành thạo ngôn ngữ ký hiệu với SignLingo.
+          Học ngôn ngữ kí hiệu một cách dễ dàng với SignLingo
         </h1>
         <div className="flex flex-col items-center gap-y-3 max-w-[330px] w-full">
           <ClerkLoading>
@@ -33,7 +33,7 @@ export default function Home() {
                 afterSignUpUrl="/learn"
               >
                 <Button size="lg" variant="secondary" className="w-full">
-                  Bắt đầu
+                  Bắt đầu ngay
                 </Button>
               </SignUpButton>
               <SignInButton
@@ -42,7 +42,7 @@ export default function Home() {
                 afterSignUpUrl="/learn"
               >
                 <Button size="lg" variant="primaryOutline" className="w-full">
-                  Đã có tài khoản
+                  Tôi đã có tài khoản
                 </Button>
               </SignInButton>
             </SignedOut>
