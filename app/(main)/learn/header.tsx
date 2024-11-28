@@ -9,7 +9,8 @@ export const Header = ({ title }: Props) => {
 
       <h1 className="font-bold text-lg">
         {/* {title} */}
-        Tiêu đề khóa học
+        {/* Tiêu đề khóa học */}
+        SignLingo
       </h1>
       <div />
     </div>

@@ -8,7 +8,7 @@ type Props = {
 };
 
 export const ResultCard = ({ value, variant }: Props) => {
-  const imageSrc = variant === "hearts" ? "/heart.svg" : "/points.svg"; 
+  const imageSrc = variant === "hearts" ? "/heart.svg" : "/points.svg";
 
   return (
     <div className={cn(
@@ -21,7 +21,7 @@ export const ResultCard = ({ value, variant }: Props) => {
         variant === "hearts" && "bg-rose-500",
         variant === "points" && "bg-orange-400"
       )}>
-        {variant === "hearts" ? "Hearts Left" : "Total XP"}
+        {variant === "hearts" ? "Số tim còn lại" : "Tổng XP"}
       </div>
       <div className={cn(
         "rounded-2xl bg-white items-center flex justify-center p-6 font-bold text-lg",

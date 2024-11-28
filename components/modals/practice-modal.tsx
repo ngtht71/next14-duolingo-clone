@@ -37,21 +37,21 @@ export const PracticeModal = () => {
             />
           </div>
           <DialogTitle className="text-center font-bold text-2xl">
-            Practice lesson
+            Thực hành bài học
           </DialogTitle>
           <DialogDescription className="text-center text-base">
-            Use practice lessons to regain hearts and points. You cannot loose hearts or points in practice lessons.
+            Sử dụng các bài học thực hành để lấy lại trái tim và điểm số. Bạn không thể mất trái tim hoặc điểm số trong các bài học thực hành.
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="mb-4">
           <div className="flex flex-col gap-y-4 w-full">
             <Button
-              variant="primary" 
-              className="w-full" 
-              size="lg" 
+              variant="primary"
+              className="w-full"
+              size="lg"
               onClick={close}
             >
-              I understand
+              Tôi đã hiểu
             </Button>
           </div>
         </DialogFooter>

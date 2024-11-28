@@ -128,7 +128,7 @@ export const Quiz = ({
               setHearts((prev) => Math.min(prev + 1, 5));
             }
           })
-          .catch(() => toast.error("Something went wrong. Please try again."))
+          .catch(() => toast.error("Đã xảy ra lỗi. Vui lòng thử lại."));
       });
     } else {
       startTransition(() => {
@@ -178,7 +178,7 @@ export const Quiz = ({
             width={50}
           />
           <h1 className="text-xl lg:text-3xl font-bold text-neutral-700">
-            Great job! <br /> You&apos;ve completed the lesson.
+            Xuất sắc! <br /> Chúc mừng bạn đã hoàn thành bài học!
           </h1>
           <div className="flex items-center gap-x-4 w-full">
             <ResultCard
@@ -200,17 +200,17 @@ export const Quiz = ({
     );
   }
 
-let title;
-switch (challenge.type) {
-  case "ASSIST":
-    title = "Chọn từ được biểu diễn trong video:";
-    break;
-  case "LEARN":
-    title = "Từ mới: " + challenge.question;
-    break;
-  default:
-    title = challenge.question;
-}
+  let title;
+  switch (challenge.type) {
+    case "ASSIST":
+      title = "Chọn từ được biểu diễn trong video:";
+      break;
+    case "LEARN":
+      title = "Từ mới: " + challenge.question;
+      break;
+    default:
+      title = challenge.question;
+  }
   return (
     <>
       {incorrectAudio}
@@ -229,10 +229,10 @@ switch (challenge.type) {
               {challenge.type === "ASSIST" && (
                 <LearningBubble vidsrc={options.find((option) => option.correct)?.imageSrc} />
               )}
-              {challenge.type==='LEARN' && (
-                <LearningBubble vidsrc={options.at(0)?.imageSrc}/>
+              {challenge.type === 'LEARN' && (
+                <LearningBubble vidsrc={options.at(0)?.imageSrc} />
               )}
-              
+
               <Challenge
                 options={options}
                 onSelect={onSelect}
