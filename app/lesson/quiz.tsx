@@ -18,6 +18,7 @@ import { Footer } from "./footer";
 import { Challenge } from "./challenge";
 import { ResultCard } from "./result-card";
 import { LearningBubble, QuestionBubble } from "./question-bubble";
+import { Button } from "@/components/ui/button";
 
 type Props = {
   initialPercentage: number;
@@ -25,7 +26,7 @@ type Props = {
   initialLessonId: number;
   initialLessonChallenges: (typeof challenges.$inferSelect & {
     completed: boolean;
-    challengeOptions: typeof challengeOptions.$inferSelect[];
+    challengeOptions: (typeof challengeOptions.$inferSelect)[];
   })[];
 };
 
@@ -49,16 +50,10 @@ export const Quiz = ({
   const router = useRouter();
 
   const [finishAudio] = useAudio({ src: "/finish.mp3", autoPlay: true });
-  const [
-    correctAudio,
-    _c,
-    correctControls,
-  ] = useAudio({ src: "/correct.wav" });
-  const [
-    incorrectAudio,
-    _i,
-    incorrectControls,
-  ] = useAudio({ src: "/incorrect.wav" });
+  const [correctAudio, _c, correctControls] = useAudio({ src: "/correct.wav" });
+  const [incorrectAudio, _i, incorrectControls] = useAudio({
+    src: "/incorrect.wav",
+  });
   const [pending, startTransition] = useTransition();
 
   const [lessonId] = useState(initialLessonId);
@@ -68,12 +63,15 @@ export const Quiz = ({
   });
   const [challenges] = useState(initialLessonChallenges);
   const [activeIndex, setActiveIndex] = useState(() => {
-    const uncompletedIndex = challenges.findIndex((challenge) => !challenge.completed);
+    const uncompletedIndex = challenges.findIndex(
+      (challenge) => !challenge.completed
+    );
     return uncompletedIndex === -1 ? 0 : uncompletedIndex;
   });
 
   const [selectedOption, setSelectedOption] = useState<number>();
   const [status, setStatus] = useState<"correct" | "wrong" | "none">("none");
+  const [hintOpen, setHintOpen] = useState(false);
 
   const challenge = challenges[activeIndex];
   const options = challenge?.challengeOptions ?? [];
@@ -128,7 +126,7 @@ export const Quiz = ({
               setHearts((prev) => Math.min(prev + 1, 5));
             }
           })
-          .catch(() => toast.error("Something went wrong. Please try again."))
+          .catch(() => toast.error("Something went wrong. Please try again."));
       });
     } else {
       startTransition(() => {
@@ -146,7 +144,7 @@ export const Quiz = ({
               setHearts((prev) => Math.max(prev - 1, 0));
             }
           })
-          .catch(() => toast.error("Something went wrong. Please try again."))
+          .catch(() => toast.error("Something went wrong. Please try again."));
       });
     }
   };
@@ -181,14 +179,8 @@ export const Quiz = ({
             Great job! <br /> You&apos;ve completed the lesson.
           </h1>
           <div className="flex items-center gap-x-4 w-full">
-            <ResultCard
-              variant="points"
-              value={challenges.length * 10}
-            />
-            <ResultCard
-              variant="hearts"
-              value={hearts}
-            />
+            <ResultCard variant="points" value={challenges.length * 10} />
+            <ResultCard variant="hearts" value={hearts} />
           </div>
         </div>
         <Footer
@@ -200,39 +192,76 @@ export const Quiz = ({
     );
   }
 
-let title;
-switch (challenge.type) {
-  case "ASSIST":
-    title = "Chọn từ được biểu diễn trong video:";
-    break;
-  case "LEARN":
-    title = "Từ mới: " + challenge.question;
-    break;
-  default:
-    title = challenge.question;
-}
+  let title;
+  switch (challenge.type) {
+    case "ASSIST":
+      title = "Chọn từ được biểu diễn trong video:";
+      break;
+    case "LEARN":
+      if (challenge.lessonId != 6) {
+        title = "Từ mới: " + challenge.question;
+      } else {
+        title = "Kiểm tra kí hiệu: " + challenge.question;
+      }
+
+      break;
+    default:
+      title = challenge.question;
+  }
+  let className: string;
+  if (challenge.lessonId == 6) {
+    className =
+      "flex flex-row gap-2 h-[300px] items-center justify-center";
+  } else {
+    className = "";
+  }
   return (
     <>
       {incorrectAudio}
       {correctAudio}
-      <Header
-        hearts={hearts}
-        percentage={percentage}
-      />
-      <div className="flex-1">
+      <Header hearts={hearts} percentage={percentage} />
+      <div className="flex-1 relative">
         <div className="h-full flex items-center justify-center">
           <div className="lg:min-h-[350px] lg:w-[600px] w-full px-6 lg:px-0 flex flex-col gap-y-12">
-            <h1 className="text-lg lg:text-3xl text-center lg:text-start font-bold text-neutral-700">
-              {title}
-            </h1>
-            <div>
+            <div className="flex flex-row items-center justify-between">
+              <h1 className="text-lg lg:text-3xl text-center lg:text-start font-bold text-neutral-700">
+                {title}
+              </h1>
+              <Button
+                className="p-2 border-2 rounded-xl"
+                variant="ghost"
+                onClick={() => {
+                  setHintOpen(!hintOpen);
+                }}
+              >
+                Hint
+              </Button>
+            </div>
+            {hintOpen && (
+              <div className={`absolute border-2 rounded-xl p-2 w-1/4 h-fit bg-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition duration-300 ease-linear ${
+                hintOpen ? "opacity-100" : "opacity-0"
+              }`}>
+                <button
+                className="p-2 border-2 rounded-xl"
+                onClick={() => {
+                  setHintOpen(!hintOpen);
+                }}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-x text-slate-500 hover:opacity-75 transition cursor-pointer"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+              </button>
+                <LearningBubble vidsrc={options.at(0)?.imageSrc} />
+              </div>
+            )}
+            <div className={className}>
               {challenge.type === "ASSIST" && (
-                <LearningBubble vidsrc={options.find((option) => option.correct)?.imageSrc} />
+                <LearningBubble
+                  vidsrc={options.find((option) => option.correct)?.imageSrc}
+                />
               )}
-              {challenge.type==='LEARN' && (
-                <LearningBubble vidsrc={options.at(0)?.imageSrc}/>
+              {challenge.type === "LEARN" && challenge.lessonId != 6 && (
+                <LearningBubble vidsrc={options.at(0)?.imageSrc} />
               )}
-              
+
               <Challenge
                 options={options}
                 onSelect={onSelect}
@@ -240,6 +269,7 @@ switch (challenge.type) {
                 selectedOption={selectedOption}
                 disabled={pending}
                 type={challenge.type}
+                lessonId={challenge.lessonId}
               />
             </div>
           </div>

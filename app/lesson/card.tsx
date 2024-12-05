@@ -17,6 +17,7 @@ type Props = {
   disabled?: boolean;
   status?: "correct" | "wrong" | "none",
   type: typeof challenges.$inferSelect["type"];
+  lessonId: number
 };
 
 export const Card = ({
@@ -30,6 +31,7 @@ export const Card = ({
   status,
   disabled,
   type,
+  lessonId
 }: Props) => {
   const [audio, _, controls] = useAudio({ src: audioSrc || "" });
 
@@ -41,8 +43,14 @@ export const Card = ({
   }, [disabled, onClick, controls]);
 
   useKey(shortcut, handleClick, {}, [handleClick]);
-
-  return (
+  if(lessonId === 6) {
+    return (
+      <div onClick = {handleClick} className="w-full p-2 border-2 rounded-xl">
+        <iframe src="https://www.example.com" className="h-full w-full"></iframe>
+      </div>
+    )
+  }
+  else return (
     <div
       onClick={handleClick}
       className={cn(
