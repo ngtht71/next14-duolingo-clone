@@ -46,7 +46,7 @@ export const Card = ({
   if(lessonId === 6) {
     return (
       <div onClick = {handleClick} className="w-full p-2 border-2 rounded-xl">
-        <iframe src="https://www.example.com" className="h-full w-full"></iframe>
+        <iframe src="http://127.0.0.1:8000/" className="h-full w-full"></iframe>
       </div>
     )
   }
