@@ -10,6 +10,7 @@ type Props = {
   selectedOption?: number;
   disabled?: boolean;
   type: typeof challenges.$inferSelect["type"];
+  lessonId: number
 };
 
 export const Challenge = ({
@@ -19,12 +20,14 @@ export const Challenge = ({
   selectedOption,
   disabled,
   type,
+  lessonId,
 }: Props) => {
   return (
     <div className={cn(
       "grid gap-2",
       type === "ASSIST" && "grid-cols-1",
-      type === "SELECT" && "grid-cols-2 lg:grid-cols-[repeat(auto-fit,minmax(0,1fr))]"
+      type === "SELECT" && "grid-cols-2 lg:grid-cols-[repeat(auto-fit,minmax(0,1fr))]",
+      lessonId === 6 && "w-full h-full"
     )}>
       {options.map((option, i) => (
         <Card
@@ -39,6 +42,7 @@ export const Challenge = ({
           audioSrc={option.audioSrc}
           disabled={disabled}
           type={type}
+          lessonId = {lessonId}
         />
       ))}
     </div>
